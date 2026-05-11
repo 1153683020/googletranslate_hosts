@@ -1,0 +1,2 @@
+# Optional extra IPv4 candidates, one per line.
+# These are merged with DNS results and probed by the generator.
