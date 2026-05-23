@@ -1,350 +1,23 @@
 {
-  "generated_at": "2026-05-23T14:02:11.740574+00:00",
+  "generated_at": "2026-05-23T19:37:01.475677+00:00",
   "domains": {
     "mtalk.google.com": {
       "candidates": [
-        "142.250.101.188",
-        "142.251.2.188",
-        "74.125.137.188"
+        "142.251.167.188",
+        "142.251.179.188",
+        "173.194.45.188"
       ],
       "picked": [
-        "74.125.137.188"
-      ],
-      "probe_results": [
-        {
-          "ip": "142.250.101.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 10.988992000001474,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 12.058873999997388,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 10.731602999996426,
-          "error": ""
-        },
-        {
-          "ip": "142.251.2.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 11.659088999998346,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 12.323786999999697,
-          "error": ""
-        },
-        {
-          "ip": "142.251.2.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 11.520185999998489,
-          "error": ""
-        },
-        {
-          "ip": "142.251.2.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 11.451952999998127,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 12.07332599999944,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 11.620559000000696,
-          "error": ""
-        },
-        {
-          "ip": "142.251.2.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 12.242370999999252,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 11.558981999996831,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 12.187444000005598,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 46.0713319999968,
-          "error": "",
-          "tls": true
-        }
-      ]
-    },
-    "mtalk-dev.google.com": {
-      "candidates": [
-        "142.250.101.188",
-        "74.125.137.188"
-      ],
-      "picked": [
-        "74.125.137.188"
-      ],
-      "probe_results": [
-        {
-          "ip": "142.250.101.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 10.7727440000005,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 11.266680000005636,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 11.454039000000193,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 11.351382000000854,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 10.73378999999619,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 11.683834999999476,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 11.866005000001678,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 11.660820000003014,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 46.839994000002605,
-          "error": "",
-          "tls": true
-        }
-      ]
-    },
-    "mtalk-staging.google.com": {
-      "candidates": [
-        "142.250.101.188",
-        "142.251.2.188",
-        "74.125.137.188"
-      ],
-      "picked": [
-        "74.125.137.188"
-      ],
-      "probe_results": [
-        {
-          "ip": "142.250.101.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 10.818634999992582,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 11.406248000000119,
-          "error": ""
-        },
-        {
-          "ip": "142.251.2.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 11.02525100000662,
-          "error": ""
-        },
-        {
-          "ip": "142.251.2.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 11.145460999998136,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 12.442514999989385,
-          "error": ""
-        },
-        {
-          "ip": "142.251.2.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 11.619484999997098,
-          "error": ""
-        },
-        {
-          "ip": "142.250.101.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 12.325614999994627,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 10.969035999991661,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 10.794325999995635,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 11.905492000011009,
-          "error": ""
-        },
-        {
-          "ip": "142.251.2.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 12.530168000012054,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 12.253349999994612,
-          "error": ""
-        },
-        {
-          "ip": "74.125.137.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 46.56721099999572,
-          "error": "",
-          "tls": true
-        }
-      ]
-    },
-    "alt1-mtalk.google.com": {
-      "candidates": [
-        "192.178.128.188"
-      ],
-      "picked": [
-        "192.178.128.188"
-      ],
-      "probe_results": [
-        {
-          "ip": "192.178.128.188",
-          "port": 5228,
-          "ok": true,
-          "latency_ms": 26.403778000002376,
-          "error": ""
-        },
-        {
-          "ip": "192.178.128.188",
-          "port": 5230,
-          "ok": true,
-          "latency_ms": 27.270587000003843,
-          "error": ""
-        },
-        {
-          "ip": "192.178.128.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 27.246180999995318,
-          "error": ""
-        },
-        {
-          "ip": "192.178.128.188",
-          "port": 5229,
-          "ok": true,
-          "latency_ms": 29.29732399999807,
-          "error": ""
-        },
-        {
-          "ip": "192.178.128.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 84.32344399999181,
-          "error": "",
-          "tls": true
-        }
-      ]
-    },
-    "alt2-mtalk.google.com": {
-      "candidates": [
-        "172.253.145.188"
-      ],
-      "picked": [
-        "172.253.145.188"
+        "142.251.179.188"
       ],
       "probe_results": [
         {
           "provider": "globalping",
-          "measurement_id": "2E2DecCRay9im5OdT00020RgJ",
-          "ip": "172.253.145.188",
+          "measurement_id": "2e44jdgYMkTB6R1h600020Rlh",
+          "ip": "142.251.179.188",
           "port": 5228,
           "ok": true,
-          "latency_ms": 213.9,
+          "latency_ms": 213.8,
           "error": "",
           "location": {
             "country": "CN",
@@ -353,32 +26,46 @@
             "network": "Shenzhen Tencent Computer Systems Company"
           },
           "stats": {
-            "min": 211.3,
-            "max": 215.9,
-            "avg": 213.9,
+            "min": 209.9,
+            "max": 216,
+            "avg": 213.8,
             "total": 3,
             "loss": 0,
             "rcv": 3,
             "drop": 0
           }
-        }
-      ]
-    },
-    "alt3-mtalk.google.com": {
-      "candidates": [
-        "172.253.135.188"
-      ],
-      "picked": [
-        "172.253.135.188"
-      ],
-      "probe_results": [
+        },
         {
           "provider": "globalping",
-          "measurement_id": "2WCZsbiZVqjmUldtv00020RgJ",
-          "ip": "172.253.135.188",
+          "measurement_id": "2ur351RWAS6OGg8Oc00020Rlh",
+          "ip": "173.194.45.188",
           "port": 5228,
           "ok": true,
-          "latency_ms": 236.6,
+          "latency_ms": 227.8,
+          "error": "",
+          "location": {
+            "country": "CN",
+            "city": "Beijing",
+            "asn": 45090,
+            "network": "Shenzhen Tencent Computer Systems Company"
+          },
+          "stats": {
+            "min": 222.5,
+            "max": 236.2,
+            "avg": 227.8,
+            "total": 3,
+            "loss": 0,
+            "rcv": 3,
+            "drop": 0
+          }
+        },
+        {
+          "provider": "globalping",
+          "measurement_id": "2yvY735jJB417hQ2s00020Rlh",
+          "ip": "142.251.167.188",
+          "port": 5228,
+          "ok": false,
+          "latency_ms": 999999.0,
           "error": "",
           "location": {
             "country": "CN",
@@ -387,9 +74,266 @@
             "network": "CHINA UNICOM China169 Backbone"
           },
           "stats": {
-            "min": 227.9,
-            "max": 248.9,
-            "avg": 236.6,
+            "min": null,
+            "max": null,
+            "avg": null,
+            "total": 3,
+            "loss": 100,
+            "rcv": 0,
+            "drop": 3
+          }
+        }
+      ]
+    },
+    "mtalk-dev.google.com": {
+      "candidates": [
+        "142.250.31.188",
+        "142.251.167.188",
+        "142.251.179.188"
+      ],
+      "picked": [
+        "142.251.179.188"
+      ],
+      "probe_results": [
+        {
+          "provider": "globalping",
+          "measurement_id": "2VWOF0g1PxuE18HA900020Rlh",
+          "ip": "142.251.179.188",
+          "port": 5228,
+          "ok": true,
+          "latency_ms": 239.2,
+          "error": "",
+          "location": {
+            "country": "CN",
+            "city": "Ningbo",
+            "asn": 136188,
+            "network": "NINGBO, ZHEJIANG Province, P.R.China."
+          },
+          "stats": {
+            "min": 233.2,
+            "max": 242.6,
+            "avg": 239.2,
+            "total": 3,
+            "loss": 0,
+            "rcv": 3,
+            "drop": 0
+          }
+        },
+        {
+          "provider": "globalping",
+          "measurement_id": "2VuMrnimsecVeHLQ200020Rlh",
+          "ip": "142.251.167.188",
+          "port": 5228,
+          "ok": false,
+          "latency_ms": 999999.0,
+          "error": "",
+          "location": {
+            "country": "CN",
+            "city": "Shenzhen",
+            "asn": 45090,
+            "network": "Shenzhen Tencent Computer Systems Company"
+          },
+          "stats": {
+            "min": null,
+            "max": null,
+            "avg": null,
+            "total": 3,
+            "loss": 100,
+            "rcv": 0,
+            "drop": 3
+          }
+        },
+        {
+          "provider": "globalping",
+          "measurement_id": "2eXVvgJaydnPVjvkA00020Rlh",
+          "ip": "142.250.31.188",
+          "port": 5228,
+          "ok": false,
+          "latency_ms": 999999.0,
+          "error": "",
+          "location": {
+            "country": "CN",
+            "city": "Shenzhen",
+            "asn": 37963,
+            "network": "Hangzhou Alibaba Advertising"
+          },
+          "stats": {
+            "min": null,
+            "max": null,
+            "avg": null,
+            "total": 3,
+            "loss": 100,
+            "rcv": 0,
+            "drop": 3
+          }
+        }
+      ]
+    },
+    "mtalk-staging.google.com": {
+      "candidates": [
+        "172.253.115.188",
+        "64.233.180.188"
+      ],
+      "picked": [
+        "64.233.180.188"
+      ],
+      "probe_results": [
+        {
+          "provider": "globalping",
+          "measurement_id": "28IvhNSGn1sTOUr4V00020Rlh",
+          "ip": "64.233.180.188",
+          "port": 5228,
+          "ok": true,
+          "latency_ms": 203.2,
+          "error": "",
+          "location": {
+            "country": "CN",
+            "city": "Ningbo",
+            "asn": 136188,
+            "network": "NINGBO, ZHEJIANG Province, P.R.China."
+          },
+          "stats": {
+            "min": 202.7,
+            "max": 203.4,
+            "avg": 203.2,
+            "total": 3,
+            "loss": 0,
+            "rcv": 3,
+            "drop": 0
+          }
+        },
+        {
+          "provider": "globalping",
+          "measurement_id": "2SNBszFtKYVHQwnQ000020Rlh",
+          "ip": "172.253.115.188",
+          "port": 5228,
+          "ok": true,
+          "latency_ms": 226.0,
+          "error": "",
+          "location": {
+            "country": "CN",
+            "city": "Shenzhen",
+            "asn": 45090,
+            "network": "Shenzhen Tencent Computer Systems Company"
+          },
+          "stats": {
+            "min": 221.6,
+            "max": 231.9,
+            "avg": 226,
+            "total": 3,
+            "loss": 0,
+            "rcv": 3,
+            "drop": 0
+          }
+        }
+      ]
+    },
+    "alt1-mtalk.google.com": {
+      "candidates": [
+        "108.177.123.188"
+      ],
+      "picked": [
+        "108.177.123.188"
+      ],
+      "probe_results": [
+        {
+          "provider": "globalping",
+          "measurement_id": "2UiNd72dqMJpCmlsv00020Rlh",
+          "ip": "108.177.123.188",
+          "port": 5228,
+          "ok": true,
+          "latency_ms": 288.9,
+          "error": "",
+          "location": {
+            "country": "CN",
+            "city": "Beijing",
+            "asn": 45090,
+            "network": "Shenzhen Tencent Computer Systems Company"
+          },
+          "stats": {
+            "min": 288.2,
+            "max": 289.6,
+            "avg": 288.9,
+            "total": 3,
+            "loss": 0,
+            "rcv": 3,
+            "drop": 0
+          }
+        }
+      ]
+    },
+    "alt2-mtalk.google.com": {
+      "candidates": [
+        "172.253.116.188"
+      ],
+      "picked": [
+        "172.253.116.188"
+      ],
+      "probe_results": [
+        {
+          "ip": "172.253.116.188",
+          "port": 443,
+          "ok": true,
+          "latency_ms": 79.02752499998655,
+          "error": ""
+        },
+        {
+          "ip": "172.253.116.188",
+          "port": 5228,
+          "ok": true,
+          "latency_ms": 79.77138200001832,
+          "error": ""
+        },
+        {
+          "ip": "172.253.116.188",
+          "port": 5230,
+          "ok": true,
+          "latency_ms": 80.77069699999129,
+          "error": ""
+        },
+        {
+          "ip": "172.253.116.188",
+          "port": 5229,
+          "ok": true,
+          "latency_ms": 80.9711429999993,
+          "error": ""
+        },
+        {
+          "ip": "172.253.116.188",
+          "port": 443,
+          "ok": true,
+          "latency_ms": 181.9837600000085,
+          "error": "",
+          "tls": true
+        }
+      ]
+    },
+    "alt3-mtalk.google.com": {
+      "candidates": [
+        "192.178.223.188"
+      ],
+      "picked": [
+        "192.178.223.188"
+      ],
+      "probe_results": [
+        {
+          "provider": "globalping",
+          "measurement_id": "2WqnSbovAbOC5eMNN00020Rlh",
+          "ip": "192.178.223.188",
+          "port": 5228,
+          "ok": true,
+          "latency_ms": 245.7,
+          "error": "",
+          "location": {
+            "country": "CN",
+            "city": "Beijing",
+            "asn": 45090,
+            "network": "Shenzhen Tencent Computer Systems Company"
+          },
+          "stats": {
+            "min": 217.5,
+            "max": 263.8,
+            "avg": 245.7,
             "total": 3,
             "loss": 0,
             "rcv": 3,
@@ -400,98 +344,122 @@
     },
     "alt4-mtalk.google.com": {
       "candidates": [
-        "192.178.209.188"
+        "173.194.76.188"
       ],
       "picked": [
-        "192.178.209.188"
+        "173.194.76.188"
       ],
       "probe_results": [
         {
-          "provider": "globalping",
-          "measurement_id": "2DYWG4GfIp0mBeVVs00020RgJ",
-          "ip": "192.178.209.188",
+          "ip": "173.194.76.188",
+          "port": 5229,
+          "ok": true,
+          "latency_ms": 87.81085399999711,
+          "error": ""
+        },
+        {
+          "ip": "173.194.76.188",
+          "port": 5230,
+          "ok": true,
+          "latency_ms": 87.64016399999264,
+          "error": ""
+        },
+        {
+          "ip": "173.194.76.188",
+          "port": 443,
+          "ok": true,
+          "latency_ms": 87.52899299997807,
+          "error": ""
+        },
+        {
+          "ip": "173.194.76.188",
           "port": 5228,
           "ok": true,
-          "latency_ms": 257.3,
+          "latency_ms": 90.22408699999573,
+          "error": ""
+        },
+        {
+          "ip": "173.194.76.188",
+          "port": 443,
+          "ok": true,
+          "latency_ms": 197.52862999999365,
           "error": "",
-          "location": {
-            "country": "CN",
-            "city": "Shenzhen",
-            "asn": 37963,
-            "network": "Hangzhou Alibaba Advertising"
-          },
-          "stats": {
-            "min": 254,
-            "max": 263.5,
-            "avg": 257.3,
-            "total": 3,
-            "loss": 0,
-            "rcv": 3,
-            "drop": 0
-          }
+          "tls": true
         }
       ]
     },
     "alt5-mtalk.google.com": {
       "candidates": [
-        "142.251.96.188"
+        "142.250.102.188"
       ],
       "picked": [
-        "142.251.96.188"
+        "142.250.102.188"
       ],
       "probe_results": [
         {
-          "provider": "globalping",
-          "measurement_id": "2SmRNFjE2sPdxOxa100020RgJ",
-          "ip": "142.251.96.188",
+          "ip": "142.250.102.188",
+          "port": 5229,
+          "ok": true,
+          "latency_ms": 91.35484299997643,
+          "error": ""
+        },
+        {
+          "ip": "142.250.102.188",
+          "port": 443,
+          "ok": true,
+          "latency_ms": 91.01473099997293,
+          "error": ""
+        },
+        {
+          "ip": "142.250.102.188",
           "port": 5228,
           "ok": true,
-          "latency_ms": 255.0,
+          "latency_ms": 92.42523700004313,
+          "error": ""
+        },
+        {
+          "ip": "142.250.102.188",
+          "port": 5230,
+          "ok": true,
+          "latency_ms": 92.103327000018,
+          "error": ""
+        },
+        {
+          "ip": "142.250.102.188",
+          "port": 443,
+          "ok": true,
+          "latency_ms": 203.52650899997116,
           "error": "",
-          "location": {
-            "country": "CN",
-            "city": "Shenzhen",
-            "asn": 37963,
-            "network": "Hangzhou Alibaba Advertising"
-          },
-          "stats": {
-            "min": 253.4,
-            "max": 256.4,
-            "avg": 255,
-            "total": 3,
-            "loss": 0,
-            "rcv": 3,
-            "drop": 0
-          }
+          "tls": true
         }
       ]
     },
     "alt6-mtalk.google.com": {
       "candidates": [
-        "142.250.100.188"
+        "192.178.213.188"
       ],
       "picked": [
-        "142.250.100.188"
+        "192.178.213.188"
       ],
       "probe_results": [
         {
           "provider": "globalping",
-          "measurement_id": "2iUJxgUmdSXgCtlFx00020RgJ",
-          "ip": "142.250.100.188",
+          "measurement_id": "2NowmOx6WVuHjVnFg00020Rli",
+          "ip": "192.178.213.188",
           "port": 5228,
           "ok": true,
-          "latency_ms": 270.5,
+          "latency_ms": 300.4,
           "error": "",
           "location": {
             "country": "CN",
-            "city": "Shenzhen",
-            "asn": 37963,
-            "network": "Hangzhou Alibaba Advertising"
+            "city": "Beijing",
+            "asn": 45090,
+            "network": "Shenzhen Tencent Computer Systems Company"
           },
           "stats": {
-            "min": 265,
-            "max": 277.2,
-            "avg": 270.5,
+            "min": 294.9,
+            "max": 308.2,
+            "avg": 300.4,
             "total": 3,
             "loss": 0,
             "rcv": 3,
@@ -502,30 +470,30 @@
     },
     "alt7-mtalk.google.com": {
       "candidates": [
-        "172.253.149.188"
+        "142.251.127.188"
       ],
       "picked": [
-        "172.253.149.188"
+        "142.251.127.188"
       ],
       "probe_results": [
         {
           "provider": "globalping",
-          "measurement_id": "2FGi7MyF8Y7LpZS3U00020RgJ",
-          "ip": "172.253.149.188",
+          "measurement_id": "2MAw99dHDAcB2lHQL00020Rli",
+          "ip": "142.251.127.188",
           "port": 5228,
           "ok": true,
-          "latency_ms": 264.6,
+          "latency_ms": 232.5,
           "error": "",
           "location": {
             "country": "CN",
-            "city": "Shenzhen",
-            "asn": 37963,
-            "network": "Hangzhou Alibaba Advertising"
+            "city": "Beijing",
+            "asn": 45090,
+            "network": "Shenzhen Tencent Computer Systems Company"
           },
           "stats": {
-            "min": 258,
-            "max": 272.4,
-            "avg": 264.6,
+            "min": 226.4,
+            "max": 235.8,
+            "avg": 232.5,
             "total": 3,
             "loss": 0,
             "rcv": 3,
@@ -536,45 +504,45 @@
     },
     "alt8-mtalk.google.com": {
       "candidates": [
-        "142.250.96.188"
+        "142.250.147.188"
       ],
       "picked": [
-        "142.250.96.188"
+        "142.250.147.188"
       ],
       "probe_results": [
         {
-          "ip": "142.250.96.188",
-          "port": 5229,
+          "ip": "142.250.147.188",
+          "port": 443,
           "ok": true,
-          "latency_ms": 41.31819599999176,
+          "latency_ms": 99.1488519999848,
           "error": ""
         },
         {
-          "ip": "142.250.96.188",
+          "ip": "142.250.147.188",
           "port": 5230,
           "ok": true,
-          "latency_ms": 41.34195999998269,
+          "latency_ms": 99.33102499996949,
           "error": ""
         },
         {
-          "ip": "142.250.96.188",
+          "ip": "142.250.147.188",
+          "port": 5229,
+          "ok": true,
+          "latency_ms": 103.14625899997054,
+          "error": ""
+        },
+        {
+          "ip": "142.250.147.188",
           "port": 5228,
           "ok": true,
-          "latency_ms": 42.44931299999166,
+          "latency_ms": 103.66370200000574,
           "error": ""
         },
         {
-          "ip": "142.250.96.188",
+          "ip": "142.250.147.188",
           "port": 443,
           "ok": true,
-          "latency_ms": 45.300424000004114,
-          "error": ""
-        },
-        {
-          "ip": "142.250.96.188",
-          "port": 443,
-          "ok": true,
-          "latency_ms": 108.3779829999969,
+          "latency_ms": 219.3061469999975,
           "error": "",
           "tls": true
         }
