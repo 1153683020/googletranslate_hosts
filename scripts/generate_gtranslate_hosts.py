@@ -373,7 +373,7 @@ def render_hosts(domains: list[str], domain_ips: dict[str, list[str]]) -> str:
     lines = [
         "# GT hosts subscription for BindHosts",
         f"# Generated at: {now}",
-        "# Source: https://github.com/<your-name>/<your-repo>/actions",
+        "# Source: https://github.com/1153683020/gogtranslate_hosts/actions",
         "#",
         "# The first reachable IP for each domain is placed first.",
     ]
