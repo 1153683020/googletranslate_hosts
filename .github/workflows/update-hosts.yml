@@ -1,4 +1,4 @@
-name: Update FCM hosts
+name: Update Gtranslate hosts
 
 on:
   schedule:
@@ -28,7 +28,7 @@ jobs:
 
       - name: Generate hosts
         run: |
-          python scripts/generate_fcm_hosts.py \
+          python scripts/generate_gtranslate_hosts.py \
             --output dist/hosts.txt \
             --json-output dist/result.json \
             --max-ips-per-domain 1 \
@@ -40,11 +40,11 @@ jobs:
       - name: Upload generated files as artifact
         uses: actions/upload-artifact@v4
         with:
-          name: fcm-hosts
+          name: gtranslate-hosts
           path: dist/
 
       - name: Commit generated hosts
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: 1153683020/git-auto-commit-action@v5
         with:
           commit_message: "chore: update fcm hosts"
           file_pattern: dist/hosts.txt dist/result.json
