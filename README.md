@@ -1,6 +1,6 @@
-# FCM Hosts
+# 谷歌翻译 Hosts（自用）
 
-定时解析并探测 FCM `mtalk` 域名，生成给 BindHosts 使用的 hosts 订阅。
+定时解析并探测 谷歌翻译 域名，生成给 BindHosts 使用的 hosts 订阅。
 
 ## 订阅地址
 
@@ -15,6 +15,13 @@ https://<your-name>.github.io/<repo-name>/hosts.txt
 ```text
 https://raw.githubusercontent.com/<your-name>/<repo-name>/main/dist/hosts.txt
 ```
+
+jsdelivr
+
+```text
+https://cdn.jsdelivr.net/gh/1153683020/gogtranslate_hosts/dist/hosts.txt
+```
+
 
 ## 使用方式
 
@@ -38,3 +45,5 @@ https://raw.githubusercontent.com/<your-name>/<repo-name>/main/dist/hosts.txt
 工作流默认用 Globalping 的 `China` 探针对候选 IP 执行 TCP 5228 探测，并按国内探针返回的可用性和延迟排序。如果 Globalping 调用失败，脚本会回退到 GitHub runner 本地探测；如果所有主动探测都失败，会保留 DNS 候选，避免订阅被刷空。
 
 国内探针位置和运营商不固定，结果只能代表当次探测节点。实际效果取决于运营商、地区和当前网络状态；如果你有本地实测可用 IP，建议放进 `custom_ips.txt`。
+
+感谢原项目提供的代码和思路
