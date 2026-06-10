@@ -1,4 +1,4 @@
 translate.google.com
 translate.googleapis.com
 translate-pa.googleapis.com
-translation.googleapis.com  #支持实时字幕
+translation.googleapis.com
