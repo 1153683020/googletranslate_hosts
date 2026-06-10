@@ -17,17 +17,10 @@ from pathlib import Path
 
 
 DEFAULT_DOMAINS = [
-    "mtalk.google.com",
-    "mtalk-dev.google.com",
-    "mtalk-staging.google.com",
-    "alt1-mtalk.google.com",
-    "alt2-mtalk.google.com",
-    "alt3-mtalk.google.com",
-    "alt4-mtalk.google.com",
-    "alt5-mtalk.google.com",
-    "alt6-mtalk.google.com",
-    "alt7-mtalk.google.com",
-    "alt8-mtalk.google.com",
+    "translate.google.com",
+    "translate.googleapis.com",
+    "translate-pa.googleapis.com",
+    "translation.googleapis.com"
 ]
 
 DOH_ENDPOINTS = [
@@ -36,7 +29,7 @@ DOH_ENDPOINTS = [
     "https://dns.quad9.net/dns-query",
 ]
 
-FCM_PORTS = [5228, 5229, 5230, 443]
+GT_PORTS = [80,443]
 GLOBALPING_API = "https://api.globalping.io/v1/measurements"
 
 
@@ -51,7 +44,7 @@ class ProbeResult:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Resolve and probe Google FCM mtalk hosts, then generate a hosts subscription."
+        description="Resolve and probe Google translate hosts, then generate a hosts subscription."
     )
     parser.add_argument("--domains-file", type=Path, default=Path("domains.txt"))
     parser.add_argument("--output", type=Path, default=Path("dist/hosts.txt"))
@@ -123,7 +116,7 @@ def resolve_doh(domain: str, endpoint: str, timeout: float) -> set[str]:
         url,
         headers={
             "accept": "application/dns-json",
-            "user-agent": "fcm-hosts-generator/1.0",
+            "user-agent": "gtranslate-hosts-generator/1.0",
         },
     )
     try:
@@ -174,7 +167,7 @@ def probe_tls(ip: str, domain: str, timeout: float) -> ProbeResult:
 def globalping_headers() -> dict[str, str]:
     headers = {
         "content-type": "application/json",
-        "user-agent": "fcm-hosts-generator/1.0",
+        "user-agent": "gtranslate-hosts-generator/1.0",
     }
     token = os.environ.get("GLOBALPING_TOKEN", "").strip()
     if token:
@@ -336,7 +329,7 @@ def pick_ip_for_domain(
         except Exception as exc:
             print(f"{domain}: Globalping probe failed, fallback to local probe: {exc}", file=sys.stderr)
 
-    probe_jobs: list[tuple[str, int]] = [(ip, port) for ip in candidates for port in FCM_PORTS]
+    probe_jobs: list[tuple[str, int]] = [(ip, port) for ip in candidates for port in GT_PORTS]
     results: list[ProbeResult] = []
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
@@ -378,7 +371,7 @@ def pick_ip_for_domain(
 def render_hosts(domains: list[str], domain_ips: dict[str, list[str]]) -> str:
     now = dt.datetime.now(dt.UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
     lines = [
-        "# FCM hosts subscription for BindHosts",
+        "# GT hosts subscription for BindHosts",
         f"# Generated at: {now}",
         "# Source: https://github.com/<your-name>/<your-repo>/actions",
         "#",
