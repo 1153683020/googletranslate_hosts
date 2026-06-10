@@ -44,7 +44,7 @@ jobs:
           path: dist/
 
       - name: Commit generated hosts
-        uses: 1153683020/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v7.1.0
         with:
           commit_message: "chore: update fcm hosts"
           file_pattern: dist/hosts.txt dist/result.json
