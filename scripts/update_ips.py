@@ -58,20 +58,6 @@ def write_target(data: bytes) -> None:
     print(f"✅ 已写入 {TARGET_FILE}")
 
 
-def generate_summary(new_hash: str, new_len: int) -> None:
-    """生成简短的 markdown 摘要，便于在 PR/commit 中查看。"""
-    summary_path = PROJECT_ROOT / "custom_ips_summary.md"
-    summary = f"""# IP 列表更新摘要
-
-- **更新时间**：{Path.cwd().as_posix()}  (UTC {os.popen('date -u "+%Y-%m-%d %H:%M:%S"').read().strip()})
-- **文件**：`custom_ips.txt`
-- **SHA‑256**：`{new_hash}`
-- **行数**：{new_len}
-"""
-
-    summary_path.write_text(summary, encoding="utf-8")
-    print(f"📝 生成摘要 {summary_path}")
-
 
 # -------------------------------------------------------------
 # 主流程
@@ -96,7 +82,7 @@ def main() -> int:
         write_target(new_content)
 
         # 5️⃣ 生成摘要（可选）
-        generate_summary(new_hash, new_content.decode(errors="ignore").count("\n") + 1)
+        # generate_summary(new_hash, new_content.decode(errors="ignore").count("\n") + 1)
 
         # 6️⃣ 返回 1 表示“有变动”，让 workflow 继续提交
         return 1
