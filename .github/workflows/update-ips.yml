@@ -1,24 +1,22 @@
 name: Update IP List (daily)
 
-# 触发方式：每天一次 + 手动触发
 on:
   schedule:
-    - cron: '0 0 * * *'   # UTC 00:00，每天一次
-  workflow_dispatch:      # 只要点一下按钮即可立即运行
+    - cron: '0 0 * * *'   # 每天 UTC 00:00
+  workflow_dispatch:      # 手动触发按钮
 
 jobs:
-  download_update:
+  update_ips:
     runs-on: ubuntu-latest
     permissions:
-      contents: write          # 需要 push 权限
+      contents: write               # 需要 push 权限
     steps:
-      # 1️⃣ 拉取仓库代码
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 2️⃣ 安装 Python 依赖（如果根目录有 requirements.txt） 
+      # ---------- 安装 Python ----------
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -29,28 +27,25 @@ jobs:
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      # 3️⃣ 让脚本可执行（可选，只是让 `./scripts/update_ips.py` 更直观）
-      #- name: Make script executable
-        #run: chmod +x scripts/update_ips.py
-
-      # 4️⃣ 运行 Python 脚本
+      # ---------- 直接用 python 运行 ----------
       - name: Run IP update script
-        id: ip_update
-        run: ./scripts/update_ips.py
+        id: run_update
+        run: python scripts/update_ips.py
         env:
-          # 通过 secret 传入真实的 URL（推荐），否则使用脚本里的默认值
+          # 把真实的下载地址放在 repo → Settings → Secrets → DOWNLOAD_URL
           DOWNLOAD_URL: ${{ secrets.DOWNLOAD_URL }}
 
-      # 5️⃣ 当脚本返回非 0（即文件真的变更）时，进行提交
+      # ---------- 有变动时提交 ----------
       - name: Configure Git user
-        if: failure()                # 只在脚本返回非 0 时进入
+        if: failure()                # 脚本返回非 0（即有变更）时才走这里
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Commit and push changes
-        if: failure()
+        if: failure()   # 只在有改动时执行
         run: |
-          git add custom_ips.txt custom_ips_summary.md
-          git commit -m "🤖 Update IP list $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
+          git add custom_ips.txt
+          git commit -m "🤖 Update custom_ips.txt (auto) $(date -u +'%Y-%m-%d %H:%M:%S UTC')"
           git push origin HEAD:${{ github.ref_name }}
+
