@@ -21,13 +21,15 @@ jsdelivr
 ```text
 https://cdn.jsdelivr.net/gh/1153683020/googletranslate_hosts/dist/hosts.txt
 ```
+**最近一次更改**
 
+实验性修改：添加了来自项目[GoogleTranslateIpCheck](https://github.com/Ponderfly/GoogleTranslateIpCheck)的ip源，在此感谢Ponderfly大佬的项目
 
 ## 使用方式
 
 1. 把这些文件推送到 GitHub 仓库。
 2. 进入仓库 `Settings` -> `Pages`，把 Source 设为 `GitHub Actions`。
-3. 到 `Actions` 手动运行一次 `Update FCM hosts`。
+3. 到 `Actions` 手动运行一次 `Update gtranslate hosts`。
 4. 在 BindHosts 里添加生成的 `hosts.txt` 订阅地址。
 
 工作流默认每 6 小时运行一次，也可以在 `.github/workflows/update-hosts.yml` 修改 cron。
