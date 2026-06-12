@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: update-fcm-hosts
+  group: update-gtranslate-hosts
   cancel-in-progress: false
 
 jobs:
