@@ -19,7 +19,7 @@ import requests
 # -------------------------------------------------------------
 DOWNLOAD_URL = os.getenv(
     "DOWNLOAD_URL",
-    "https://raw.githubusercontent.com/Ponderfly/GoogleTranslateIpCheck/refs/heads/master/src/GoogleTranslateIpCheck/GoogleTranslateIpCheck/ip.txt"  # <-- 替换成你的真实地址
+    "https://example.com/path/to/ip.txt"  # <-- 替换成你的真实地址
 )
 
 # 项目根目录（相对于本文件所在的 scripts/ 目录向上一级）
