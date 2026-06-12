@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write               # 需要 push 权限
+    env:
+      DOWNLOAD_URL: ${{ secrets.DOWNLOAD_URL }}
+      
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
