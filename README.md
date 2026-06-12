@@ -19,7 +19,7 @@ https://raw.githubusercontent.com/<your-name>/<repo-name>/main/dist/hosts.txt
 jsdelivr
 
 ```text
-https://cdn.jsdelivr.net/gh/1153683020/gogtranslate_hosts/dist/hosts.txt
+https://cdn.jsdelivr.net/gh/1153683020/googletranslate_hosts/dist/hosts.txt
 ```
 
 
