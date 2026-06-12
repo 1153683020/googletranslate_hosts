@@ -48,6 +48,7 @@ jobs:
         with:
           commit_message: "chore: update Google Translate hosts"
           file_pattern: dist/hosts.txt dist/result.json
+          push_options: '--force-with-lease'
       
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
