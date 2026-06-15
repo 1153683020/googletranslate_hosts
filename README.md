@@ -23,7 +23,9 @@ https://cdn.jsdelivr.net/gh/1153683020/googletranslate_hosts/dist/hosts.txt
 ```
 **最近一次更改**
 
-实验性修改：添加了来自项目[GoogleTranslateIpCheck](https://github.com/Ponderfly/GoogleTranslateIpCheck)的ip源，在此感谢Ponderfly大佬的项目
+~实验性修改：添加了来自项目[GoogleTranslateIpCheck](https://github.com/Ponderfly/GoogleTranslateIpCheck)的ip源~，在此感谢Ponderfly大佬的项目
+
+该修改已经移除，原因是影响Globalping的结果
 
 ## 使用方式
 
