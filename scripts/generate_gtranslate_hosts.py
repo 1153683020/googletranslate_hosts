@@ -27,6 +27,14 @@ DOH_ENDPOINTS = [
     "https://dns.google/resolve",
     "https://cloudflare-dns.com/dns-query",
     "https://dns.quad9.net/dns-query",
+    "https://dns.adguard.com/dns-query",
+    "https://dns.mullvad.net/dns-query",
+    "https://doh.eurodns.org/dns-query",
+    "https://doh.opendns.com/dns-query",
+    "https://doh.pub/dns-query",
+    "https://dns.alidns.com/dns-query",
+    "https://doh.tencentyun.com/dns-query",
+    "https://dns.libredns.gr/family/dns-query"
 ]
 
 GT_PORTS = [80,443]
