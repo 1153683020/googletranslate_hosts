@@ -10,6 +10,7 @@ import socket
 import ssl
 import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from dataclasses import dataclass
@@ -37,7 +38,8 @@ DOH_ENDPOINTS = [
     "https://dns.libredns.gr/family/dns-query"
 ]
 
-GT_PORTS = [80,443]
+GT_PORTS = [80, 443]
+GLOBALPING_PROBE_PORT = 443
 GLOBALPING_API = "https://api.globalping.io/v1/measurements"
 
 
@@ -70,6 +72,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--globalping-limit", type=int, default=1)
     parser.add_argument("--globalping-packets", type=int, default=3)
     parser.add_argument("--globalping-timeout", type=float, default=45.0)
+    parser.add_argument("--globalping-workers", type=int, default=8)
     parser.add_argument(
         "--fallback-to-dns",
         action=argparse.BooleanOptionalAction,
@@ -141,11 +144,21 @@ def resolve_doh(domain: str, endpoint: str, timeout: float) -> set[str]:
     return ips
 
 
-def resolve_domain(domain: str, timeout: float) -> set[str]:
-    ips = resolve_system(domain)
-    for endpoint in DOH_ENDPOINTS:
-        ips.update(resolve_doh(domain, endpoint, timeout))
-    return ips
+def resolve_all_domains(domains: list[str], timeout: float, workers: int) -> dict[str, set[str]]:
+    results: dict[str, set[str]] = {domain: set() for domain in domains}
+    with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
+        future_domain: dict[concurrent.futures.Future, str] = {}
+        for domain in domains:
+            future_domain[executor.submit(resolve_system, domain)] = domain
+            for endpoint in DOH_ENDPOINTS:
+                future_domain[executor.submit(resolve_doh, domain, endpoint, timeout)] = domain
+        for future in concurrent.futures.as_completed(future_domain):
+            domain = future_domain[future]
+            try:
+                results[domain].update(future.result())
+            except Exception:
+                pass
+    return results
 
 
 def probe_tcp(ip: str, port: int, timeout: float) -> ProbeResult:
@@ -187,9 +200,19 @@ def globalping_request(method: str, url: str, payload: dict[str, object] | None,
     data = None
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")
-    req = urllib.request.Request(url, data=data, method=method, headers=globalping_headers())
-    with urllib.request.urlopen(req, timeout=timeout) as response:
-        return json.loads(response.read().decode("utf-8"))
+    last_exc: Exception | None = None
+    for attempt in range(2):
+        req = urllib.request.Request(url, data=data, method=method, headers=globalping_headers())
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as response:
+                return json.loads(response.read().decode("utf-8"))
+        except urllib.error.HTTPError as exc:
+            last_exc = exc
+            if exc.code == 429 and attempt == 0:
+                time.sleep(5)
+                continue
+            raise
+    raise last_exc if last_exc else RuntimeError("globalping request failed")
 
 
 def globalping_extract_stats(result: dict[str, object]) -> tuple[bool, float, str]:
@@ -276,104 +299,103 @@ def probe_globalping_tcp(
     ]
 
 
-def pick_ip_with_globalping(
-    candidates: set[str],
+def probe_globalping_ips(
+    ips: list[str],
     location: str,
     limit: int,
     packets: int,
     timeout: float,
     workers: int,
-    max_ips: int,
-) -> tuple[list[str], list[dict[str, object]]]:
+) -> tuple[dict[str, tuple[int, float]], list[dict[str, object]]]:
     details: list[dict[str, object]] = []
     scores: dict[str, tuple[int, float]] = {}
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=min(workers, max(1, len(candidates)))) as executor:
-        futures = [
-            executor.submit(probe_globalping_tcp, ip, 5228, location, limit, packets, timeout)
-            for ip in candidates
-        ]
-        for future in concurrent.futures.as_completed(futures):
-            for result in future.result():
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(workers, max(1, len(ips)))) as executor:
+        future_ip: dict[concurrent.futures.Future, str] = {
+            executor.submit(probe_globalping_tcp, ip, GLOBALPING_PROBE_PORT, location, limit, packets, timeout): ip
+            for ip in ips
+        }
+        for future in concurrent.futures.as_completed(future_ip):
+            ip = future_ip[future]
+            try:
+                results = future.result()
+            except Exception as exc:
+                details.append(
+                    {
+                        "provider": "globalping",
+                        "ip": ip,
+                        "port": GLOBALPING_PROBE_PORT,
+                        "ok": False,
+                        "latency_ms": 999999.0,
+                        "error": str(exc),
+                    }
+                )
+                continue
+            for result in results:
                 details.append(result)
-                ip = str(result["ip"])
                 ok_count, latency = scores.get(ip, (0, 999999.0))
                 if result.get("ok"):
                     scores[ip] = (ok_count + 1, min(latency, float(result["latency_ms"])))
                 else:
                     scores.setdefault(ip, (ok_count, latency))
 
-    ranked = sorted(scores.items(), key=lambda item: (-item[1][0], item[1][1], item[0]))
-    picked = [ip for ip, (ok_count, _) in ranked if ok_count > 0][:max_ips]
-    return picked, details
+    return scores, details
 
 
-def pick_ip_for_domain(
-    domain: str,
-    candidates: set[str],
+def probe_local_ips(
+    ips: list[str],
     timeout: float,
     workers: int,
-    max_ips: int,
-    fallback_to_dns: bool,
-    probe_provider: str,
-    globalping_location: str,
-    globalping_limit: int,
-    globalping_packets: int,
-    globalping_timeout: float,
-) -> tuple[list[str], list[dict[str, object]]]:
-    if probe_provider == "globalping" and candidates:
-        try:
-            picked, details = pick_ip_with_globalping(
-                candidates=candidates,
-                location=globalping_location,
-                limit=globalping_limit,
-                packets=globalping_packets,
-                timeout=globalping_timeout,
-                workers=workers,
-                max_ips=max_ips,
-            )
-            if picked or not fallback_to_dns:
-                return picked, details
-        except Exception as exc:
-            print(f"{domain}: Globalping probe failed, fallback to local probe: {exc}", file=sys.stderr)
-
-    probe_jobs: list[tuple[str, int]] = [(ip, port) for ip in candidates for port in GT_PORTS]
-    results: list[ProbeResult] = []
+) -> tuple[dict[str, tuple[int, float]], list[dict[str, object]]]:
+    probe_jobs: list[tuple[str, int]] = [(ip, port) for ip in ips for port in GT_PORTS]
+    scores: dict[str, tuple[int, float]] = {}
+    details: list[dict[str, object]] = []
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
         futures = [executor.submit(probe_tcp, ip, port, timeout) for ip, port in probe_jobs]
         for future in concurrent.futures.as_completed(futures):
-            results.append(future.result())
+            result = future.result()
+            details.append(result.__dict__)
+            ok_count, latency = scores.get(result.ip, (0, 999999.0))
+            if result.ok:
+                scores[result.ip] = (ok_count + 1, min(latency, result.latency_ms))
+            else:
+                scores.setdefault(result.ip, (ok_count, latency))
 
-    scores: dict[str, tuple[int, float]] = {}
-    details: list[dict[str, object]] = []
-    for result in results:
-        details.append(result.__dict__)
-        ok_count, latency = scores.get(result.ip, (0, 999999.0))
-        if result.ok:
-            scores[result.ip] = (ok_count + 1, min(latency, result.latency_ms))
-        else:
-            scores.setdefault(result.ip, (ok_count, latency))
+    return scores, details
 
-    ranked = sorted(scores.items(), key=lambda item: (-item[1][0], item[1][1], item[0]))
-    picked = [ip for ip, (ok_count, _) in ranked if ok_count > 0][:max_ips]
 
-    # Port probing is the main signal for mtalk. A successful TLS probe to 443 is a bonus
-    # for Google frontends and helps filter DNS answers that are reachable but unsuitable.
+def pick_from_scores(
+    candidates: set[str],
+    scores: dict[str, tuple[int, float]],
+    max_ips: int,
+) -> list[str]:
+    ranked = sorted(
+        ((ip, scores.get(ip, (0, 999999.0))) for ip in candidates),
+        key=lambda item: (-item[1][0], item[1][1], item[0]),
+    )
+    return [ip for ip, (ok_count, _) in ranked if ok_count > 0][:max_ips]
+
+
+def check_tls_for_domain(
+    picked: list[str],
+    domain: str,
+    timeout: float,
+    workers: int,
+) -> tuple[list[str], list[dict[str, object]]]:
     tls_checked: list[str] = []
-    if picked:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=min(workers, len(picked))) as executor:
-            futures = [executor.submit(probe_tls, ip, domain, timeout) for ip in picked]
-            for future in concurrent.futures.as_completed(futures):
-                result = future.result()
-                details.append(result.__dict__ | {"tls": True})
-                if result.ok:
-                    tls_checked.append(result.ip)
+    details: list[dict[str, object]] = []
+    if not picked:
+        return tls_checked, details
 
-    if not picked and fallback_to_dns:
-        picked = sorted(candidates)[:max_ips]
-
-    return tls_checked or picked, details
+    with concurrent.futures.ThreadPoolExecutor(max_workers=min(workers, len(picked))) as executor:
+        futures = [executor.submit(probe_tls, ip, domain, timeout) for ip in picked]
+        for future in concurrent.futures.as_completed(futures):
+            result = future.result()
+            details.append(result.__dict__ | {"tls": True})
+            if result.ok:
+                tls_checked.append(result.ip)
+    return tls_checked, details
 
 
 def render_hosts(domains: list[str], domain_ips: dict[str, list[str]]) -> str:
@@ -381,7 +403,7 @@ def render_hosts(domains: list[str], domain_ips: dict[str, list[str]]) -> str:
     lines = [
         "# GT hosts subscription for BindHosts",
         f"# Generated at: {now}",
-        "# Source: https://github.com/1153683020/gogtranslate_hosts/actions",
+        "# Source: https://github.com/1153683020/googletranslate_hosts/actions",
         "#",
         "# The first reachable IP for each domain is placed first.",
     ]
@@ -399,38 +421,55 @@ def render_hosts(domains: list[str], domain_ips: dict[str, list[str]]) -> str:
 def main() -> int:
     args = parse_args()
     domains = load_lines(args.domains_file, DEFAULT_DOMAINS)
-    custom_ips = set(load_lines(args.custom_ips_file, []))
-    custom_ips = {ip for ip in custom_ips if valid_ipv4(ip)}
+    custom_ips = {ip for ip in load_lines(args.custom_ips_file, []) if valid_ipv4(ip)}
 
     all_results: dict[str, object] = {
         "generated_at": dt.datetime.now(dt.UTC).isoformat(),
+        "probe_results": [],
         "domains": {},
     }
     domain_ips: dict[str, list[str]] = {}
 
-    for domain in domains:
-        candidates = resolve_domain(domain, args.timeout)
+    domain_candidates = resolve_all_domains(domains, args.timeout, args.workers)
+    unique_ips: set[str] = set()
+    for candidates in domain_candidates.values():
         candidates.update(custom_ips)
-        picked, details = pick_ip_for_domain(
-            domain=domain,
-            candidates=candidates,
-            timeout=args.timeout,
-            workers=args.workers,
-            max_ips=args.max_ips_per_domain,
-            fallback_to_dns=args.fallback_to_dns,
-            probe_provider=args.probe_provider,
-            globalping_location=args.globalping_location,
-            globalping_limit=args.globalping_limit,
-            globalping_packets=args.globalping_packets,
-            globalping_timeout=args.globalping_timeout,
-        )
-        domain_ips[domain] = picked
+        unique_ips.update(candidates)
+    print(f"total: {len(unique_ips)} unique candidate IPs", file=sys.stderr)
+
+    scores: dict[str, tuple[int, float]] = {}
+    if args.probe_provider == "globalping" and unique_ips:
+        try:
+            scores, probe_details = probe_globalping_ips(
+                ips=sorted(unique_ips),
+                location=args.globalping_location,
+                limit=args.globalping_limit,
+                packets=args.globalping_packets,
+                timeout=args.globalping_timeout,
+                workers=args.globalping_workers,
+            )
+            all_results["probe_results"] = probe_details
+        except Exception as exc:
+            print(f"Globalping probe failed, fallback to local probe: {exc}", file=sys.stderr)
+            scores = {}
+    if not scores and unique_ips:
+        scores, probe_details = probe_local_ips(sorted(unique_ips), args.timeout, args.workers)
+        all_results["probe_results"] = probe_details
+
+    for domain in domains:
+        candidates = domain_candidates[domain]
+        picked = pick_from_scores(candidates, scores, args.max_ips_per_domain)
+        if not picked and args.fallback_to_dns:
+            picked = sorted(candidates)[: args.max_ips_per_domain]
+        tls_checked, tls_details = check_tls_for_domain(picked, domain, args.timeout, args.workers)
+        final = tls_checked or picked
+        domain_ips[domain] = final
         all_results["domains"][domain] = {
             "candidates": sorted(candidates),
-            "picked": picked,
-            "probe_results": details,
+            "picked": final,
+            "tls_results": tls_details,
         }
-        print(f"{domain}: {len(candidates)} candidates, {len(picked)} picked", file=sys.stderr)
+        print(f"{domain}: {len(candidates)} candidates, {len(final)} picked", file=sys.stderr)
 
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(render_hosts(domains, domain_ips), encoding="utf-8", newline="\n")
