@@ -1,9 +1,9 @@
 # GT hosts subscription for BindHosts
-# Generated at: 2026-10-04 12:28:58 UTC
+# Generated at: 2026-10-04 21:34:42 UTC
 # Source: https://github.com/1153683020/googletranslate_hosts/actions
 #
 # The first reachable IP for each domain is placed first.
-142.250.115.100 translate.google.com
-142.250.115.95 translate.googleapis.com
+142.250.113.100 translate.google.com
+142.251.108.95 translate.googleapis.com
 172.217.112.4 translate-pa.googleapis.com
 142.250.115.95 translation.googleapis.com
