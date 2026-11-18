@@ -19,7 +19,7 @@ https://raw.githubusercontent.com/<your-name>/<repo-name>/google-translate-hosts
 jsdelivr
 
 ```text
-https://cdn.jsdelivr.net/gh/1153683020/googletranslate_hosts/dist/hosts.txt
+https://cdn.jsdelivr.net/gh/AZLightXwX/googletranslate_hosts/dist/hosts.txt
 ```
 **最近一次更改**
 
